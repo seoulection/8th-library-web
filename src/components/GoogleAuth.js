@@ -35,9 +35,9 @@ export class GoogleAuth extends React.Component {
         email: currentUser.getEmail(),
         image_url: currentUser.getImageUrl()
       }
-      const response = await loginUser(data);
+      await loginUser(data);
     } catch(err) {
-      console.log(err);
+      await this.auth.signOut();
     }
   }
 
