@@ -1,33 +1,42 @@
 import React from 'react';
-import getHelloWorldMessage from './api/HelloAPI';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
+import { connect } from 'react-redux';
+import Listings from './views/Listings';
+import Login from './views/Login';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { message: '' };
-  }
-
-  componentDidMount() {
-    this.setHelloWorldMessage();
-  }
-
-  setHelloWorldMessage = async () => {
-    try {
-      const response = await getHelloWorldMessage();
-      this.setState({ message: response.data.message });
-    } catch(err) {
-      this.setState({ message: err.message });
+  onAuthChange = isSignedIn => {
+    if (isSignedIn) {
+      this.props.signIn(this.auth.currentUser.get().getId());
+    } else {
+      this.props.signOut();
     }
   }
 
   render() {
     return (
       <div className="App">
-        <h1>{this.state.message}</h1>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Login}>
+              {this.props.isSignedIn ? <Redirect to="/listings" /> : <Login />}
+            </Route>
+            <Route path="/listings" component={Listings}>
+              {!this.props.isSignedIn ? <Redirect to="/" /> : <Listings />}
+            </Route>
+          </Switch>
+        </Router>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return { isSignedIn: state.auth.isSignedIn };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(App);
