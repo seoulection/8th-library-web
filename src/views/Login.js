@@ -1,13 +1,49 @@
 import React from 'react';
-import GoogleAuth from '../components/GoogleAuth';
+import GoogleLogin from 'react-google-login';
+import { connect } from 'react-redux';
+import { signIn, signOut } from '../actions';
+import { loginUser } from '../api/UserAPI';
 
-const Login = () => {
-  return (
-    <div className="Login">
-      <h1>8th Library</h1>
-      <GoogleAuth />
-    </div>
-  );
+class Login extends React.Component {
+  loginSuccessful = async ({ profileObj }) => {
+    try {
+      console.log(profileObj);
+      const data = {
+        first_name: profileObj.givenName,
+        last_name: profileObj.familyName,
+        email: profileObj.email,
+        image_url: profileObj.imageUrl
+      };
+      const response = await loginUser(data);
+      this.props.signIn(response.data.current_user);
+    } catch(err) {
+      console.log('error logging in');
+    }
+  }
+
+  loginUnsuccessful = response => {
+    console.log(response);
+  }
+
+  render() {
+    return (
+      <div className="Login">
+        <h1>8th Library</h1>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          onSuccess={this.loginSuccessful}
+          onFailure={this.loginUnsuccessful}
+        />
+      </div>
+    );
+  }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return { isSignedIn: state.auth.isSignedIn };
+}
+
+export default connect(
+  mapStateToProps,
+  { signIn, signOut }
+)(Login);

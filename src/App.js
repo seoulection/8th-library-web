@@ -2,19 +2,24 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
+import { signIn, signOut } from './actions';
+import { currentUser } from './api/UserAPI';
 import Listings from './views/Listings';
 import Login from './views/Login';
 
 class App extends React.Component {
-  onAuthChange = isSignedIn => {
-    if (isSignedIn) {
-      this.props.signIn(this.auth.currentUser.get().getId());
-    } else {
+  async componentDidMount() {
+    try {
+      const response = await currentUser()
+      this.props.signIn(response.data.current_user);
+    } catch(err) {
       this.props.signOut();
     }
   }
 
   render() {
+    console.log('hello');
+    console.log(this.props.isSignedIn);
     return (
       <div className="App">
         <Router>
@@ -38,5 +43,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  null
+  { signIn, signOut }
 )(App);
