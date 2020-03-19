@@ -1,6 +1,7 @@
 import React from 'react';
 import Resizer from 'react-image-file-resizer';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { addBook } from '../api/BookAPI';
 
 class BookForm extends React.Component {
@@ -67,6 +68,7 @@ class BookForm extends React.Component {
         user_id: this.props.userId
       }
       await addBook(data);
+      this.props.history.push('/listings');
     } catch(err) {
       console.log(err);
     }
@@ -107,7 +109,7 @@ const mapStateToProps = state => {
   return { userId: state.auth.userId };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   null
-)(BookForm);
+)(BookForm));
