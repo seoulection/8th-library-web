@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { signIn, signOut } from './actions';
 import { currentUser } from './api/UserAPI';
 import AddBook from './views/AddBook';
+import BookDetails from './views/BookDetails';
 import Listings from './views/Listings';
 import Login from './views/Login';
 import Navbar from './components/Navbar';
@@ -33,6 +34,9 @@ class App extends React.Component {
             </Route>
             <Route path="/books/add">
               {!this.props.isSignedIn ? <Redirect to="/" /> : <AddBook />}
+            </Route>
+            <Route path="/books/:bookId">
+              {!this.props.isSignedIn ? <Redirect to="/" /> : <BookDetails />}
             </Route>
           </Switch>
         </Router>

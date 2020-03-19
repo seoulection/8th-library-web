@@ -19,3 +19,13 @@ export const getBooks = async () => {
     return err;
   }
 }
+
+export const showBook = async bookId => {
+  try {
+    return await axios.get(`${process.env.REACT_APP_HOST}/api/books/${bookId}`, {
+      withCredentials: true
+    });
+  } catch(err) {
+    return err;
+  }
+}

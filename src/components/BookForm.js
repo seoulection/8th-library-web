@@ -42,8 +42,8 @@ class BookForm extends React.Component {
       if(fileInput) {
         Resizer.imageFileResizer(
           event.target.files[0],
-          140,
-          200,
+          450,
+          300,
           'JPEG',
           100,
           0,
@@ -67,8 +67,8 @@ class BookForm extends React.Component {
         },
         user_id: this.props.userId
       }
-      await addBook(data);
-      this.props.history.push('/listings');
+      const { data: { id } } = await addBook(data);
+      this.props.history.push(`/books/${id}`);
     } catch(err) {
       console.log(err);
     }
