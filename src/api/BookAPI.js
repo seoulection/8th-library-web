@@ -9,3 +9,13 @@ export const addBook = async data => {
     return err;
   }
 }
+
+export const getBooks = async () => {
+  try {
+    return await axios.get(`${process.env.REACT_APP_HOST}/api/books`, {
+      withCredentials: true
+    });
+  } catch(err) {
+    return err;
+  }
+}
