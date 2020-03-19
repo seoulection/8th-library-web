@@ -1,11 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
 import { signIn, signOut } from './actions';
 import { currentUser } from './api/UserAPI';
+import AddBook from './views/AddBook';
 import Listings from './views/Listings';
 import Login from './views/Login';
+import Navbar from './components/Navbar';
 
 class App extends React.Component {
   async componentDidMount() {
@@ -18,17 +20,19 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('hello');
-    console.log(this.props.isSignedIn);
     return (
       <div className="App">
         <Router>
+          <Navbar show={this.props.isSignedIn} />
           <Switch>
-            <Route exact path="/" component={Login}>
+            <Route exact path="/">
               {this.props.isSignedIn ? <Redirect to="/listings" /> : <Login />}
             </Route>
-            <Route path="/listings" component={Listings}>
+            <Route path="/listings">
               {!this.props.isSignedIn ? <Redirect to="/" /> : <Listings />}
+            </Route>
+            <Route path="/books/add">
+              {!this.props.isSignedIn ? <Redirect to="/" /> : <AddBook />}
             </Route>
           </Switch>
         </Router>

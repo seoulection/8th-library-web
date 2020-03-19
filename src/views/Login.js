@@ -7,7 +7,6 @@ import { loginUser } from '../api/UserAPI';
 class Login extends React.Component {
   loginSuccessful = async ({ profileObj }) => {
     try {
-      console.log(profileObj);
       const data = {
         first_name: profileObj.givenName,
         last_name: profileObj.familyName,
@@ -17,7 +16,7 @@ class Login extends React.Component {
       const response = await loginUser(data);
       this.props.signIn(response.data.current_user);
     } catch(err) {
-      console.log('error logging in');
+      console.log(err);
     }
   }
 
