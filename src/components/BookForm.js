@@ -42,8 +42,8 @@ class BookForm extends React.Component {
       if(fileInput) {
         Resizer.imageFileResizer(
           event.target.files[0],
-          450,
-          300,
+          400,
+          400,
           'JPEG',
           100,
           0,
@@ -78,27 +78,46 @@ class BookForm extends React.Component {
     return (
       <div className="BookForm">
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Title:
-            <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
-          </label>
-          <br />
-          <label>
-            Author:
-            <input type="text" value={this.state.author} onChange={this.handleAuthorChange} />
-          </label>
-          <br />
-          <label>
-            Description:
-            <input type="text" value={this.state.description} onChange={this.handleDescriptionChange} />
-          </label>
-          <br />
-          <label>
-            Image:
-            <input type="file" accept=".jpg,.jpeg,.png" onChange={this.handleImageChange} />
-          </label>
-          <br />
-          <button type="submit">Submit</button>
+          <div class="form-group">
+            <label htmlFor="bookTitle">Title</label>
+            <input
+              className="form-control"
+              type="text"
+              value={this.state.title}
+              onChange={this.handleTitleChange}
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label htmlFor="bookAuthor">Author</label>
+            <input
+              className="form-control"
+              type="text"
+              value={this.state.author}
+              onChange={this.handleAuthorChange}
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label htmlFor="bookDescription">Description</label>
+            <textarea
+              className="form-control"
+              type="text"
+              value={this.state.description}
+              onChange={this.handleDescriptionChange}
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label htmlFor="bookImage">Image</label>
+            <input
+              className="form-control"
+              type="file"
+              accept=".jpg,.jpeg,.png"
+              onChange={this.handleImageChange}
+            />
+          </div>
+          <button className="btn btn-primary" type="submit">Submit</button>
         </form>
       </div>
     );
