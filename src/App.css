@@ -2,15 +2,30 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  padding-top: 50px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar-default {
+  background-color: #29323C;
+}
+
+.navbar-default .navbar-header > a {
+  color: #EEF2F5;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #EEF2F5;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  background-color: #27A8E0;
+  color: #EEF2F5;
+}
+
+.scrollable {
+  overflow-y: auto;
+  height: 600px;
 }
 
 .App-header {
@@ -28,14 +43,10 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.Login {
+.listing-img {
+  -webkit-transform: scale(0.7); /* Saf3.1+, Chrome */
+  -moz-transform: scale(0.7); /* FF3.5+ */
+  -ms-transform: scale(0.7); /* IE9 */
+  -o-transform: scale(0.7); /* Opera 10.5+ */
+  transform: scale(0.7);
 }

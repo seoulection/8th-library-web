@@ -12,7 +12,7 @@ const BookList = ({ books }) => {
   }
 
   return (
-    <div className="BookList">
+    <div className="scrollable">
       {renderedList}
     </div>
   );

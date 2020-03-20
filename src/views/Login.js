@@ -26,7 +26,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="Login">
+      <div className="text-center">
         <h1>8th Library</h1>
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}

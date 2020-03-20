@@ -19,7 +19,6 @@ class Listings extends React.Component {
   async storeBooks() {
     try {
       const { data } = await getBooks();
-      console.log(data.books);
       if (data.books) {
         this.setState({
           availableBooks: data.books.filter(book => book.isAvailable === true),
@@ -33,11 +32,17 @@ class Listings extends React.Component {
 
   render() {
     return (
-      <div className="Listings">
-        <h1>Available Books</h1>
-        <BookList books={this.state.availableBooks} />
-        <h1>Unavailable Books</h1>
-        <BookList books={this.state.unavailableBooks} />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6">
+            <h1>Available Books</h1>
+            <BookList books={this.state.availableBooks} />
+          </div>
+          <div className="col-md-6">
+            <h1>Unavailable Books</h1>
+            <BookList books={this.state.unavailableBooks} />
+          </div>
+        </div>
       </div>
     );
   }

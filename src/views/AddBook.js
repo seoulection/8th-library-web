@@ -5,8 +5,8 @@ import BookForm from '../components/BookForm';
 class AddBook extends React.Component {
   render() {
     return (
-      <div className="AddBook">
-        <h1>Add Book Page</h1>
+      <div className="container">
+        <h1 className="text-center">Add Book</h1>
         <BookForm />
       </div>
     );
