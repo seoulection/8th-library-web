@@ -44,6 +44,11 @@ body {
 }
 
 .listing-img {
+  width: 100%;
+  height: 100%
+}
+
+.blisting-img {
   -webkit-transform: scale(0.7); /* Saf3.1+, Chrome */
   -moz-transform: scale(0.7); /* FF3.5+ */
   -ms-transform: scale(0.7); /* IE9 */

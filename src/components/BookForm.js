@@ -20,6 +20,8 @@ class BookForm extends React.Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    console.log(this.props.userId);
   }
 
   handleTitleChange(event) {
@@ -75,10 +77,11 @@ class BookForm extends React.Component {
   }
 
   render() {
+    console.log(this.props.userId);
     return (
       <div className="BookForm">
         <form onSubmit={this.handleSubmit}>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="bookTitle">Title</label>
             <input
               className="form-control"
@@ -88,7 +91,7 @@ class BookForm extends React.Component {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="bookAuthor">Author</label>
             <input
               className="form-control"
@@ -98,7 +101,7 @@ class BookForm extends React.Component {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="bookDescription">Description</label>
             <textarea
               className="form-control"
@@ -108,7 +111,7 @@ class BookForm extends React.Component {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="bookImage">Image</label>
             <input
               className="form-control"

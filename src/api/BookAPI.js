@@ -29,3 +29,13 @@ export const showBook = async bookId => {
     return err;
   }
 }
+
+export const borrowBook = async data => {
+  try {
+    return await axios.patch(`${process.env.REACT_APP_HOST}/api/books/${data.book_id}`, data, {
+      withCredentials: true
+    });
+  } catch(err) {
+    return err;
+  }
+}
