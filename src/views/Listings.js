@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import BookList from '../components/BookList';
+import { currentUser } from '../api/UserAPI';
 import { getBooks } from '../api/BookAPI';
 
 class Listings extends React.Component {
@@ -14,11 +16,22 @@ class Listings extends React.Component {
 
   componentDidMount() {
     this.storeBooks();
+    this.getCurrentUser();
+  }
+
+  async getCurrentUser() {
+    try {
+      const response = await currentUser()
+      this.props.signIn(response.data.current_user);
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   async storeBooks() {
     try {
       const { data } = await getBooks();
+      console.log(data.books);
       if (data.books) {
         this.setState({
           availableBooks: data.books.filter(book => book.isAvailable === true),
@@ -31,6 +44,7 @@ class Listings extends React.Component {
   }
 
   render() {
+    console.log(this.props.userId);
     return (
       <div className="container">
         <div className="row">
@@ -48,4 +62,11 @@ class Listings extends React.Component {
   }
 }
 
-export default Listings;
+const mapStateToProps = state => {
+  return { userId: state.auth.userId };
+}
+
+export default connect(
+  mapStateToProps,
+  null,
+)(Listings);
