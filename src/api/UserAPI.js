@@ -11,3 +11,9 @@ export function loginUser(data) {
     withCredentials: true
   });
 }
+
+export function logoutUser() {
+  return axios.delete(`${process.env.REACT_APP_HOST}/api/users/logout`, {
+    withCredentials: true
+  });
+}
