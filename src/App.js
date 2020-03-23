@@ -1,55 +1,29 @@
-import React from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { connect } from 'react-redux';
-import { signIn, signOut } from './actions';
+import { useAuthContext } from './contexts/AuthContext';
 import { currentUser } from './api/UserAPI';
-import AddBook from './views/AddBook';
-import BookDetails from './views/BookDetails';
-import Listings from './views/Listings';
-import Login from './views/Login';
-import Navbar from './components/Navbar';
+import AuthenticatedApp from './AuthenticatedApp';
+import UnauthenticatedApp from './UnauthenticatedApp';
 
-class App extends React.Component {
-  async componentDidMount() {
-    try {
-      const response = await currentUser()
-      this.props.signIn(response.data.current_user);
-    } catch(err) {
-      this.props.signOut();
-    }
-  }
+function App() {
+  const { isLoggedIn, login, setUser } = useAuthContext();
+  const [isLoading, setIsLoading] = useState(true);
 
-  render() {
-    return (
-      <div className="container-fluid">
-        <Router>
-          <Navbar show={this.props.isSignedIn} />
-          <Switch>
-            <Route exact path="/">
-              {this.props.isSignedIn ? <Redirect to="/listings" /> : <Login />}
-            </Route>
-            <Route path="/listings">
-              {!this.props.isSignedIn ? <Redirect to="/" /> : <Listings />}
-            </Route>
-            <Route path="/books/add">
-              {!this.props.isSignedIn ? <Redirect to="/" /> : <AddBook />}
-            </Route>
-            <Route path="/books/:bookId">
-              {!this.props.isSignedIn ? <Redirect to="/" /> : <BookDetails />}
-            </Route>
-          </Switch>
-        </Router>
-      </div>
-    );
-  }
+  useEffect(() => {
+    currentUser()
+      .then(res => {
+        login();
+        setUser(res.data.user)
+      })
+      .then(() => setIsLoading(false))
+      .catch(() => setIsLoading(false))
+  }, [isLoggedIn]);
+
+  if (isLoading) return <h1>Loading...</h1>;
+
+  if (isLoggedIn) return <AuthenticatedApp />;
+
+  return <UnauthenticatedApp />;
 }
 
-const mapStateToProps = state => {
-  return { isSignedIn: state.auth.isSignedIn };
-}
-
-export default connect(
-  mapStateToProps,
-  { signIn, signOut }
-)(App);
+export default App;
