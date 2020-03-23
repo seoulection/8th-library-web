@@ -1,14 +1,12 @@
 import React from 'react';
 import Book from './Book';
 
-const BookList = ({ books }) => {
+const BookList = props => {
   let renderedList;
-  if (books) {
-    renderedList = books.map(book => {
+  if (props.books) {
+    renderedList = props.books.map(book => {
       return <Book key={book.id} book={book} />;
     });
-  } else {
-    renderedList = 'No books were found';
   }
 
   return (
