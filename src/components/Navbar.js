@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import NavbarLinks from './NavbarLinks';
 
 function Navbar() {
   return (
@@ -9,10 +9,7 @@ function Navbar() {
           <a className="navbar-brand" href="/">8th Library</a>
         </div>
         <div className="navbar-collapse collapse">
-          <ul className="nav navbar-nav navbar-right">
-            <li><Link to="/">Listings</Link></li>
-            <li><Link to="/books/add">Add Book</Link></li>
-          </ul>
+          <NavbarLinks />
         </div>
       </div>
     </nav>

@@ -7,11 +7,11 @@ const AuthProvider = ({ children }) => {
   const [user, setCurrentUser] = useState(null);
 
   const login = () => setIsLoggedIn(true);
-
+  const logout = () => setIsLoggedIn(false);
   const setUser = user => setCurrentUser(user);
 
   return (
-    <AuthContext.Provider value={{ login, isLoggedIn, setUser, user }}>
+    <AuthContext.Provider value={{ login, logout, isLoggedIn, setUser, user }}>
       {children}
     </AuthContext.Provider>
   );
