@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
-import { showBook, borrowBook } from '../api/BookAPI';
+import { borrowBook, returnBook, showBook } from '../api/BookAPI';
 
 function BookDetails() {
   let { bookId } = useParams();
@@ -27,14 +27,24 @@ function BookDetails() {
       .catch(err => console.log(err))
   }
 
+  const onReturnClick = () => {
+    returnBook({ book_id: book.id })
+      .then(res => setBook(res.data))
+      .catch(err => console.log(err))
+  }
+
   let borrowingUser;
-  let button;
+  let borrowButton;
+  let returnButton;
 
   if (book) {
     if (book.borrowed_user) {
       borrowingUser = <p>Borrowed by: {book.borrowed_user.first_name} {book.borrowed_user.last_name}</p>;
+      if (book.borrowed_user.id === user.id) {
+        returnButton = <button className="btn btn-primary" onClick={onReturnClick}>Return</button>;
+      }
     } else {
-      button = <button className="btn btn-primary" onClick={onBorrowClick}>Borrow</button>;
+      borrowButton = <button className="btn btn-primary" onClick={onBorrowClick}>Borrow</button>;
     }
 
     return (
@@ -49,7 +59,8 @@ function BookDetails() {
             <h3>Rating: 4.5/5</h3>
             <h3>Description: {book.description}</h3>
             {borrowingUser}
-            {button}
+            {returnButton}
+            {borrowButton}
           </div>
         </div>
       </div>

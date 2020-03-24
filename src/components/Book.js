@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
-import { borrowBook } from '../api/BookAPI';
+import { borrowBook, returnBook } from '../api/BookAPI';
 
 function Book(props) {
   const { user } = useAuthContext();
@@ -20,12 +20,22 @@ function Book(props) {
       .catch(err => console.log(err))
   }
 
-  let button;
+  const onReturnClick = () => {
+    returnBook({ book_id: id })
+      .then(() => window.location.reload())
+      .catch(err => console.log(err))
+  }
+
+  let borrowButton;
   let borrowingUser;
+  let returnButton;
   if (borrowed_user) {
     borrowingUser = <p>Borrowed by: {borrowed_user.first_name} {borrowed_user.last_name}</p>;
+    if (borrowed_user.id === user.id) {
+      returnButton = <button className="btn btn-primary" onClick={onReturnClick}>Return</button>;
+    }
   } else {
-    button = <button className="btn btn-primary" onClick={onBorrowClick}>Borrow</button>;
+    borrowButton = <button className="btn btn-primary" onClick={onBorrowClick}>Borrow</button>;
   }
 
   return (
@@ -41,7 +51,8 @@ function Book(props) {
           <h2>{author}</h2>
           <p>Rating: 4.5/5</p>
           {borrowingUser}
-          {button}
+          {returnButton}
+          {borrowButton}
         </div>
       </div>
     </div>

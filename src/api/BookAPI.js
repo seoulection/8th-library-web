@@ -19,7 +19,13 @@ export const showBook = bookId => {
 }
 
 export const borrowBook = data => {
-  return axios.patch(`${process.env.REACT_APP_HOST}/api/books/${data.book_id}`, data, {
+  return axios.patch(`${process.env.REACT_APP_HOST}/api/books/${data.book_id}/borrow`, data, {
+    withCredentials: true
+  });
+}
+
+export const returnBook = data => {
+  return axios.patch(`${process.env.REACT_APP_HOST}/api/books/${data.book_id}/return`, data, {
     withCredentials: true
   });
 }
