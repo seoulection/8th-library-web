@@ -17,3 +17,9 @@ export function logoutUser() {
     withCredentials: true
   });
 }
+
+export function showUser(id) {
+  return axios.get(`${process.env.REACT_APP_HOST}/api/users/${id}`, {
+    withCredentials: true
+  });
+}

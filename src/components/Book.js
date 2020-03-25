@@ -29,7 +29,7 @@ function Book(props) {
   let borrowButton;
   let borrowingUser;
   let returnButton;
-  if (borrowed_user) {
+  if (borrowed_user !== null) {
     borrowingUser = <p>Borrowed by: {borrowed_user.first_name} {borrowed_user.last_name}</p>;
     if (borrowed_user.id === user.id) {
       returnButton = <button className="btn btn-primary" onClick={onReturnClick}>Return</button>;
