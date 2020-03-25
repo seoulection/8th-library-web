@@ -6,16 +6,18 @@ function LabeledTextInput(props) {
   }
 
   return (
-    <>
-      <label>{props.label}</label>
+    <div data-testid="LabeledTextInput">
+      <label htmlFor="input">{props.label}</label>
       <input
+        id="input"
+        data-testid="TextInput"
         className="form-control"
         type="text"
         value={props.value}
         onChange={handleOnChange}
         required
       />
-    </>
+    </div>
   );
 }
 

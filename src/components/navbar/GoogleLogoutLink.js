@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGoogleLogout } from 'react-google-login';
-import { useAuthContext } from '../contexts/AuthContext';
-import { logoutUser } from '../api/UserAPI';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { logoutUser } from '../../api/UserAPI';
 
 function GoogleLogoutLink() {
   const { logout, setUser } = useAuthContext();
@@ -13,7 +13,7 @@ function GoogleLogoutLink() {
   }
 
   const onLogoutFailure = () => {
-    console.log('failed to logout');
+    console.log('Failed to logout');
   }
 
   const { signOut } = useGoogleLogout({
@@ -30,7 +30,7 @@ function GoogleLogoutLink() {
       .catch(err => console.log(err))
   }
 
-  return <Link onClick={onLogoutClick} to="/">Logout</Link>;
+  return <Link data-testid="GoogleLogoutLink" onClick={onLogoutClick} to="#">Logout</Link>;
 }
 
 export default GoogleLogoutLink;

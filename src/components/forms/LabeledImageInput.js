@@ -24,16 +24,18 @@ function LabeledImageInput(props) {
   }
 
   return (
-    <>
-      <label>{props.label}</label>
+    <div data-testid="LabeledImageInput">
+      <label htmlFor="image-input">{props.label}</label>
       <input
+        id="image-input"
+        data-testid="ImageInput"
         className="form-control"
         type="file"
         accept=".jpg,.jpeg,.png"
         onChange={handleOnChange}
         required
       />
-    </>
+    </div>
   );
 }
 

@@ -4,12 +4,14 @@ import { useAuthContext } from './contexts/AuthContext';
 import { currentUser } from './api/UserAPI';
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
+import Loading from './components/Loading';
 
 function App() {
-  const { isLoggedIn, login, setUser } = useAuthContext();
+  const { user, isLoggedIn, login, setUser } = useAuthContext();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (user) return;
     currentUser()
       .then(res => {
         login();
@@ -17,9 +19,9 @@ function App() {
       })
       .then(() => setIsLoading(false))
       .catch(() => setIsLoading(false))
-  }, [isLoggedIn]);
+  }, [login, setUser, user]);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Loading />;
 
   if (isLoggedIn) return <AuthenticatedApp />;
 

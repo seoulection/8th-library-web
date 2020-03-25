@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import { borrowBook, returnBook, showBook } from '../api/BookAPI';
+import Button from '../components/forms/Button';
 
 function BookDetails() {
+  let borrowingUser;
+  let borrowButton;
+  let returnButton;
   let { bookId } = useParams();
 
   const [book, setBook] = useState(null);
@@ -33,30 +37,25 @@ function BookDetails() {
       .catch(err => console.log(err))
   }
 
-  let borrowingUser;
-  let borrowButton;
-  let returnButton;
-
   if (book) {
     if (book.borrowed_user) {
       borrowingUser = <p>Borrowed by: {book.borrowed_user.first_name} {book.borrowed_user.last_name}</p>;
       if (book.borrowed_user.id === user.id) {
-        returnButton = <button className="btn btn-primary" onClick={onReturnClick}>Return</button>;
+        returnButton = <Button buttonText="Return" onButtonClick={onReturnClick} />
       }
     } else {
-      borrowButton = <button className="btn btn-primary" onClick={onBorrowClick}>Borrow</button>;
+      borrowButton = <Button buttonText="Borrow" onButtonClick={onBorrowClick} />
     }
 
     return (
-      <div className="container">
+      <div data-testid="BookDetails" className="container">
         <div className="row">
           <div className="col-md-6">
             <h1>{book.title}</h1>
             <img src={book.image} alt={book.title} />
           </div>
           <div className="col-md-6">
-            <h3>Author: {book.author}</h3>
-            <h3>Rating: 4.5/5</h3>
+            <h2>Author: {book.author}</h2>
             <h3>Description: {book.description}</h3>
             {borrowingUser}
             {returnButton}
@@ -66,7 +65,7 @@ function BookDetails() {
       </div>
     );
   } else {
-    return <h1>Book not loaded</h1>;
+    return <h1 data-testid="ErrorBookDetails">Book not loaded</h1>;
   }
 }
 

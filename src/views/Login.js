@@ -4,7 +4,7 @@ import { useAuthContext } from '../contexts/AuthContext';
 import { loginUser } from '../api/UserAPI';
 
 function Login() {
-  const { login } = useAuthContext();
+  const { login, setUser } = useAuthContext();
 
   const loginSuccessful = ({ profileObj }) => {
     const userData = {
@@ -16,13 +16,14 @@ function Login() {
 
     loginUser(userData)
       .then(result => {
-        login(result.user);
+        setUser(result.user);
       })
+      .then(() => login())
       .catch((err) => console.log(err))
   }
 
   const loginUnsuccessful = () => {
-    console.log('unsuccessful');
+    console.log('Login unsuccessful');
   }
 
   return (
