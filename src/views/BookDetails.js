@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import { borrowBook, returnBook, showBook } from '../api/BookAPI';
 import Button from '../components/forms/Button';
+import Loading from '../components/Loading';
 
 function BookDetails() {
   let borrowingUser;
@@ -53,6 +54,7 @@ function BookDetails() {
           <div className="col-md-6">
             <h1>{book.title}</h1>
             <img src={book.image} alt={book.title} />
+            <h4>Posted by: {book.user.first_name} {book.user.last_name}</h4>
           </div>
           <div className="col-md-6">
             <h2>Author: {book.author}</h2>
@@ -65,7 +67,7 @@ function BookDetails() {
       </div>
     );
   } else {
-    return <h1 data-testid="ErrorBookDetails">Book not loaded</h1>;
+    return <Loading />;
   }
 }
 

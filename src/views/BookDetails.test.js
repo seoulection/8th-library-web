@@ -44,6 +44,7 @@ describe('BookDetails', () => {
       expect(bookDetails).toHaveTextContent('Harry Potter');
       expect(bookDetails).toHaveTextContent('J.K. Rowling');
       expect(bookDetails).toHaveTextContent('Yer a book, Harry');
+      expect(bookDetails).toHaveTextContent('Posted by: Test User');
       expect(borrowButton).toBeInTheDocument();
       expect(queryByTestId('ReturnButton')).toBeNull();
     });
@@ -78,6 +79,7 @@ describe('BookDetails', () => {
       expect(bookDetails).toHaveTextContent('Ken Forkish');
       expect(bookDetails).toHaveTextContent('A book about bread');
       expect(bookDetails).toHaveTextContent('Borrowed by: Test User');
+      expect(bookDetails).toHaveTextContent('Posted by: Test User');
       expect(queryByTestId('BorrowButton')).toBeNull();
       expect(returnButton).toBeInTheDocument();
     });
@@ -117,12 +119,13 @@ describe('BookDetails', () => {
       expect(bookDetails).toHaveTextContent('N. Avail');
       expect(bookDetails).toHaveTextContent('This book is not available');
       expect(bookDetails).toHaveTextContent('Borrowed by: Borrowing User');
+      expect(bookDetails).toHaveTextContent('Posted by: Test User');
       expect(queryByTestId('BorrowButton')).toBeNull();
       expect(queryByTestId('ReturnButton')).toBeNull();
     });
   });
 
-  test('it displays book not loaded text if no book exists', async () => {
+  test('it displays Loading when book has not been loaded', async () => {
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce({ data: null });
       const { getByTestId } = render(
@@ -132,10 +135,10 @@ describe('BookDetails', () => {
           </Router>
         </AuthContext.Provider>
       );
-      const error = await waitForElement(() => getByTestId('ErrorBookDetails'));
+      const loading = await waitForElement(() => getByTestId('Loading'));
 
-      expect(error).toBeInTheDocument();
-      expect(error).toHaveTextContent('Book not loaded');
+      expect(loading).toBeInTheDocument();
+      expect(loading).toHaveTextContent('Loading...');
     });
   });
 });
