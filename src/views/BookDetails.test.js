@@ -44,6 +44,7 @@ describe('BookDetails', () => {
       expect(bookDetails).toHaveTextContent('Harry Potter');
       expect(bookDetails).toHaveTextContent('J.K. Rowling');
       expect(bookDetails).toHaveTextContent('Yer a book, Harry');
+      expect(bookDetails).toHaveTextContent('Posted by: Test User');
       expect(borrowButton).toBeInTheDocument();
       expect(queryByTestId('ReturnButton')).toBeNull();
     });
@@ -78,6 +79,7 @@ describe('BookDetails', () => {
       expect(bookDetails).toHaveTextContent('Ken Forkish');
       expect(bookDetails).toHaveTextContent('A book about bread');
       expect(bookDetails).toHaveTextContent('Borrowed by: Test User');
+      expect(bookDetails).toHaveTextContent('Posted by: Test User');
       expect(queryByTestId('BorrowButton')).toBeNull();
       expect(returnButton).toBeInTheDocument();
     });
@@ -117,6 +119,7 @@ describe('BookDetails', () => {
       expect(bookDetails).toHaveTextContent('N. Avail');
       expect(bookDetails).toHaveTextContent('This book is not available');
       expect(bookDetails).toHaveTextContent('Borrowed by: Borrowing User');
+      expect(bookDetails).toHaveTextContent('Posted by: Test User');
       expect(queryByTestId('BorrowButton')).toBeNull();
       expect(queryByTestId('ReturnButton')).toBeNull();
     });

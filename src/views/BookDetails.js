@@ -54,6 +54,7 @@ function BookDetails() {
           <div className="col-md-6">
             <h1>{book.title}</h1>
             <img src={book.image} alt={book.title} />
+            <h4>Posted by: {book.user.first_name} {book.user.last_name}</h4>
           </div>
           <div className="col-md-6">
             <h2>Author: {book.author}</h2>
