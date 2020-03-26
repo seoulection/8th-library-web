@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import { borrowBook, returnBook, showBook } from '../api/BookAPI';
 import Button from '../components/forms/Button';
+import Loading from '../components/Loading';
 
 function BookDetails() {
   let borrowingUser;
@@ -65,7 +66,7 @@ function BookDetails() {
       </div>
     );
   } else {
-    return <h1 data-testid="ErrorBookDetails">Book not loaded</h1>;
+    return <Loading />;
   }
 }
 

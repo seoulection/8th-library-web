@@ -122,7 +122,7 @@ describe('BookDetails', () => {
     });
   });
 
-  test('it displays book not loaded text if no book exists', async () => {
+  test('it displays Loading when book has not been loaded', async () => {
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce({ data: null });
       const { getByTestId } = render(
@@ -132,10 +132,10 @@ describe('BookDetails', () => {
           </Router>
         </AuthContext.Provider>
       );
-      const error = await waitForElement(() => getByTestId('ErrorBookDetails'));
+      const loading = await waitForElement(() => getByTestId('Loading'));
 
-      expect(error).toBeInTheDocument();
-      expect(error).toHaveTextContent('Book not loaded');
+      expect(loading).toBeInTheDocument();
+      expect(loading).toHaveTextContent('Loading...');
     });
   });
 });
