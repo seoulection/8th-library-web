@@ -4,7 +4,7 @@ import AddBook from './views/AddBook';
 import BookDetails from './views/BookDetails';
 import Listings from './views/Listings';
 import UserDashboard from './views/UserDashboard';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 
 function AuthenticatedApp() {
   return (

@@ -5,13 +5,15 @@ const BookList = props => {
   let renderedList;
   if (props.books) {
     renderedList = props.books.map(book => {
-      return <Book key={book.id} book={book} />;
+      return <Book key={book.id} book={book} onAvailableChange={props.onAvailableChange} />;
     });
   }
 
   return (
-    <div className="scrollable">
-      {renderedList}
+    <div data-testid="BookList" className="scrollable">
+      <ul className="list-group">
+        {renderedList}
+      </ul>
     </div>
   );
 }

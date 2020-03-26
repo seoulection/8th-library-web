@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAuthContext } from '../contexts/AuthContext';
-import BookList from '../components/BookList';
+import BookList from '../components/book/BookList';
 import { showUser } from '../api/UserAPI';
 
 function UserDashboard() {
@@ -11,7 +11,7 @@ function UserDashboard() {
     userBorrowedBooks: []
   });
 
-  useEffect(() => {
+  const loadUser = useCallback(() => {
     showUser(user.id)
       .then(res => {
         setState(state => ({
@@ -24,19 +24,20 @@ function UserDashboard() {
       .catch(err => console.log(err))
   }, [user.id]);
 
-  console.log('the state is');
-  console.log(state);
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
 
   return (
-    <div className="container">
+    <div data-testid="UserDashboard" className="container">
       <div className="row">
         <div className="col-md-6">
           <h1>My Books</h1>
-          <BookList books={state.userBooks} />
+          <BookList books={state.userBooks} onAvailableChange={loadUser} />
         </div>
         <div className="col-md-6">
           <h1>Books I'm Borrowing</h1>
-          <BookList books={state.userBorrowedBooks} />
+          <BookList books={state.userBorrowedBooks} onAvailableChange={loadUser} />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import BookList from '../components/BookList';
+import BookList from '../components/book/BookList';
 import { getBooks } from '../api/BookAPI';
 
 function Listings() {
@@ -7,24 +7,28 @@ function Listings() {
   const [unavailableBooks, setUnavailableBooks] = useState([]);
 
   useEffect(() => {
+    loadBooks();
+  }, []);
+
+  const loadBooks = () => {
     getBooks()
       .then(res => {
         setAvailableBooks(res.data.books.filter(book => book.isAvailable === true));
         setUnavailableBooks(res.data.books.filter(book => book.isAvailable === false));
       })
       .catch(err => console.log(err))
-  }, []);
+  }
 
   return (
-    <div className="container">
+    <div data-testid="Listings" className="container">
       <div className="row">
-        <div className="col-md-6">
+        <div data-testid="AvailableBooks" className="col-md-6">
           <h1>Available Books</h1>
-          <BookList books={availableBooks} />
+          <BookList books={availableBooks} onAvailableChange={loadBooks} />
         </div>
-        <div className="col-md-6">
+        <div data-testid="UnavailableBooks" className="col-md-6">
           <h1>Unavailable Books</h1>
-          <BookList books={unavailableBooks} />
+          <BookList books={unavailableBooks} onAvailableChange={loadBooks} />
         </div>
       </div>
     </div>
