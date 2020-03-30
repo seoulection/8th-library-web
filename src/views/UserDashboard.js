@@ -17,8 +17,8 @@ function UserDashboard() {
         setState(state => ({
           ...state,
           user: res.data.user,
-          userBooks: res.data.user.books,
-          userBorrowedBooks: res.data.user.borrowed_books.filter(book => book.borrowed_user)
+          userBooks: res.data.user.owned_books,
+          userBorrowedBooks: res.data.user.borrowed_books.filter(book => book.borrower)
         }))
       })
       .catch(err => console.log(err))

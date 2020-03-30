@@ -18,14 +18,14 @@ export const showBook = bookId => {
   });
 }
 
-export const borrowBook = data => {
-  return axios.patch(`${process.env.REACT_APP_HOST}/api/books/${data.book_id}/borrow`, data, {
+export const borrowBook = bookId => {
+  return axios.patch(`${process.env.REACT_APP_HOST}/api/books/${bookId}/borrow`, null, {
     withCredentials: true
   });
 }
 
-export const returnBook = data => {
-  return axios.patch(`${process.env.REACT_APP_HOST}/api/books/${data.book_id}/return`, data, {
+export const returnBook = bookId => {
+  return axios.patch(`${process.env.REACT_APP_HOST}/api/books/${bookId}/return`, null, {
     withCredentials: true
   });
 }

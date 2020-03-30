@@ -21,27 +21,21 @@ function BookDetails() {
   }, [bookId]);
 
   const onBorrowClick = () => {
-    const data = {
-      book_id: book.id,
-      is_available: book.isAvailable,
-      user_id: user.id
-    }
-
-    borrowBook(data)
+    borrowBook(book.id)
       .then(res => setBook(res.data))
       .catch(err => console.log(err))
   }
 
   const onReturnClick = () => {
-    returnBook({ book_id: book.id })
+    returnBook(book.id)
       .then(res => setBook(res.data))
       .catch(err => console.log(err))
   }
 
   if (book) {
-    if (book.borrowed_user) {
-      borrowingUser = <p>Borrowed by: {book.borrowed_user.first_name} {book.borrowed_user.last_name}</p>;
-      if (book.borrowed_user.id === user.id) {
+    if (book.borrower) {
+      borrowingUser = <p>Borrowed by: {book.borrower.first_name} {book.borrower.last_name}</p>;
+      if (book.borrower.id === user.id) {
         returnButton = <Button buttonText="Return" onButtonClick={onReturnClick} />
       }
     } else {
@@ -54,7 +48,7 @@ function BookDetails() {
           <div className="col-md-6">
             <h1>{book.title}</h1>
             <img src={book.image} alt={book.title} />
-            <h4>Posted by: {book.user.first_name} {book.user.last_name}</h4>
+            <h4>Posted by: {book.owner.first_name} {book.owner.last_name}</h4>
           </div>
           <div className="col-md-6">
             <h2>Author: {book.author}</h2>
