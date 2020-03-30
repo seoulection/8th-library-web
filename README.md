@@ -4,6 +4,9 @@ The web application for the 8th Light [API](https://github.com/seoulection/8th-l
 
 The Heroku deployment can be viewed [here](https://eighth-library-web.herokuapp.com)
 
+## Pre-Requisites
+* nodejs 13.9.0
+
 ## Available Scripts
 
 In the project directory, you can run:
