@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { cleanup, render, fireEvent, waitForElement } from '@testing-library/react';
+import { cleanup, render, fireEvent } from '@testing-library/react';
 import Navbar from './Navbar';
 import { AuthProvider } from '../../contexts/AuthContext';
 import renderWithRouter from '../../setupTests';
@@ -72,5 +72,48 @@ describe('Navbar', () => {
     fireEvent.click(dashboardLink);
 
     expect(history.location.pathname).toEqual('/dashboard');
+  });
+
+  test('it has a text input for filtering books', () => {
+    const { getByRole } = renderWithRouter(
+      <AuthProvider>
+        <Navbar />
+      </AuthProvider>,
+      { route: '/' }
+    );
+    const filterInput = getByRole('textbox');
+
+    expect(filterInput).toBeInTheDocument();
+  });
+
+  test('it has a checkbox input for toggling books', () => {
+    const { getByRole } = renderWithRouter(
+      <AuthProvider>
+        <Navbar />
+      </AuthProvider>,
+      { route: '/' }
+    );
+    const checkbox = getByRole('checkbox');
+
+    expect(checkbox).toBeInTheDocument();
+  });
+
+  test('inputs call mock functions on change', () => {
+    const mockOnChange = jest.fn();
+    const { getByRole } = renderWithRouter(
+      <AuthProvider>
+        <Navbar
+          onCheckboxChange={mockOnChange}
+          onFilterChange={mockOnChange}
+        />
+      </AuthProvider>,
+      { route: '/' }
+    );
+    const filterInput = getByRole('textbox');
+    const checkbox = getByRole('checkbox');
+    fireEvent.change(filterInput, { target: { value: 'Hello' } });
+    fireEvent.click(checkbox);
+
+    expect(mockOnChange).toHaveBeenCalledTimes(2);
   });
 });
