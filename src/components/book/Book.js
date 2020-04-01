@@ -6,22 +6,16 @@ import Button from '../forms/Button';
 
 function Book(props) {
   const { user } = useAuthContext();
-  const { author, borrowed_user, id, image, isAvailable, title } = props.book;
+  const { author, borrower, id, image, title } = props.book;
 
   const onBorrowClick = () => {
-    const data = {
-      book_id: id,
-      is_available: isAvailable,
-      user_id: user.id
-    }
-
-    borrowBook(data)
+    borrowBook(id)
       .then(() => props.onAvailableChange())
       .catch(err => console.log(err))
   }
 
   const onReturnClick = () => {
-    returnBook({ book_id: id })
+    returnBook(id)
       .then(() => props.onAvailableChange())
       .catch(err => console.log(err))
   }
@@ -29,9 +23,9 @@ function Book(props) {
   let borrowButton;
   let borrowingUser;
   let returnButton;
-  if (borrowed_user) {
-    borrowingUser = <p>Borrowed by: {borrowed_user.first_name} {borrowed_user.last_name}</p>;
-    if (borrowed_user.id === user.id) {
+  if (borrower) {
+    borrowingUser = <p>Borrowed by: {borrower.first_name} {borrower.last_name}</p>;
+    if (borrower.id === user.id) {
       returnButton = <Button buttonText="Return" onButtonClick={onReturnClick}>Return</Button>
     }
   } else {

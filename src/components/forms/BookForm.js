@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { addBook } from '../../api/BookAPI';
-import { useAuthContext } from '../../contexts/AuthContext';
 import LabeledImageInput from './LabeledImageInput';
 import LabeledTextInput from './LabeledTextInput';
 
 function BookForm() {
   let history = useHistory();
 
-  const { user } = useAuthContext();
   const [state, setState] = useState({
     title: '',
     author: '',
@@ -28,13 +26,10 @@ function BookForm() {
     event.preventDefault();
 
     const data = {
-      book: {
-        title: state.title,
-        author: state.author,
-        description: state.description,
-        image: state.image
-      },
-      user_id: user.id
+      title: state.title,
+      author: state.author,
+      description: state.description,
+      image: state.image
     }
 
     addBook(data)

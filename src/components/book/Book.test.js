@@ -14,7 +14,7 @@ describe('Book', () => {
     title: 'Hello',
     author: 'World',
     image: null,
-    borrowed_user: null,
+    borrower: null,
     isAvailable: true
   };
 
@@ -23,7 +23,7 @@ describe('Book', () => {
     title: 'Unavailable',
     author: 'Book',
     image: null,
-    borrowed_user: {
+    borrower: {
       id: 2,
       first_name: 'Borrowing',
       last_name: 'User'

@@ -24,8 +24,8 @@ describe('BookDetails', () => {
         title: 'Harry Potter',
         author: 'J.K. Rowling',
         description: 'Yer a book, Harry',
-        user: user,
-        borrowed_user: null
+        owner: user,
+        borrower: null
       }
     };
     await act(async () => {
@@ -58,8 +58,8 @@ describe('BookDetails', () => {
         title: 'Flour Water Salt Yeast',
         author: 'Ken Forkish',
         description: 'A book about bread',
-        borrowed_user: user,
-        user: user
+        borrower: user,
+        owner: user
       }
     };
     await act(async () => {
@@ -99,8 +99,8 @@ describe('BookDetails', () => {
         title: 'Not Available',
         author: 'N. Avail',
         description: 'This book is not available',
-        borrowed_user: borrowingUser,
-        user: user
+        borrower: borrowingUser,
+        owner: user
       }
     };
     await act(async () => {

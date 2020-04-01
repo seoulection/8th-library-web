@@ -16,7 +16,7 @@ describe('UserDashboard', () => {
         first_name: 'Owner',
         last_name: 'McOwnerson',
         email: 'owner@mcownerson.com',
-        books: [
+        owned_books: [
           {
             id: 1,
             title: 'Book 1',
@@ -42,7 +42,7 @@ describe('UserDashboard', () => {
             description: 'Description 2',
             image: null,
             isAvailable: false,
-            borrowed_user: {
+            borrower: {
               id: 1
             }
           },
