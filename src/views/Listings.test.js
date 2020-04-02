@@ -92,8 +92,8 @@ describe('Listings', () => {
   test('renders all of the books', async () => {
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce(data);
-      const { getAllByRole } = setup();
-      const books = await waitForElement(() => getAllByRole('listitem'));
+      const { getAllByTestId } = setup();
+      const books = await waitForElement(() => getAllByTestId('Book'));
 
       expect(books.length).toEqual(4);
     });
@@ -103,14 +103,14 @@ describe('Listings', () => {
     const filterQuery = 'book 1';
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce(data);
-      const { getAllByRole } = render(
+      const { getAllByTestId } = render(
         <AuthContext.Provider value={{ user: user }}>
           <Router>
             <Listings filterQuery={filterQuery} unmounted={jest.fn()} />
           </Router>
         </AuthContext.Provider>
       );
-      const filteredBooks = await waitForElement(() => getAllByRole('listitem'));
+      const filteredBooks = await waitForElement(() => getAllByTestId('Book'));
 
       expect(filteredBooks.length).toEqual(1);
     });
@@ -119,14 +119,14 @@ describe('Listings', () => {
   test('it only shows available books if availability is set to true', async () => {
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce(data);
-      const { getAllByRole } = render(
+      const { getAllByTestId } = render(
         <AuthContext.Provider value={{ user: user }}>
           <Router>
             <Listings showAvailableOnly={true} unmounted={jest.fn()} />
           </Router>
         </AuthContext.Provider>
       );
-      const toggledBooks = await waitForElement(() => getAllByRole('listitem'));
+      const toggledBooks = await waitForElement(() => getAllByTestId('Book'));
 
       expect(toggledBooks.length).toEqual(2);
     });
@@ -136,14 +136,14 @@ describe('Listings', () => {
     const mockFunction = jest.fn();
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce(data);
-      const { getAllByRole, unmount } = render(
+      const { getAllByTestId, unmount } = render(
         <AuthContext.Provider value={{ user: user }}>
           <Router>
             <Listings unmounted={mockFunction} />
           </Router>
         </AuthContext.Provider>
       );
-      await waitForElement(() => getAllByRole('listitem'));
+      await waitForElement(() => getAllByTestId('Book'));
       unmount();
 
       expect(mockFunction).toBeCalledTimes(1);
