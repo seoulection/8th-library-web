@@ -70,14 +70,14 @@ describe('UserDashboard', () => {
   test('renders all of the books', async () => {
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce(data);
-      const { getAllByRole } = render(
+      const { getAllByTestId } = render(
         <AuthContext.Provider value={{ user: { id: 1 } }}>
           <Router>
             <UserDashboard />
           </Router>
         </AuthContext.Provider>
       );
-      const books = await waitForElement(() => getAllByRole('listitem'));
+      const books = await waitForElement(() => getAllByTestId('Book'));
 
       expect(books.length).toEqual(3);
     });

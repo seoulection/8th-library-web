@@ -4,7 +4,7 @@ import Login from './views/Login';
 
 function UnauthenticatedApp() {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid h-100">
       <Login />
       <Route render={() => <Redirect to="/" />} />
     </div>

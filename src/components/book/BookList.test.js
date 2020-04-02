@@ -34,7 +34,7 @@ describe('BookList', () => {
         isAvailable: true
       }
     ];
-    const { getAllByRole } = render(
+    const { getAllByTestId } = render(
       <AuthProvider>
         <Router>
           <BookList books={books} />
@@ -42,13 +42,13 @@ describe('BookList', () => {
       </AuthProvider>
     );
 
-    const bookList = await waitForElement(() => getAllByRole('listitem'));
+    const bookList = await waitForElement(() => getAllByTestId('Book'));
 
     expect(bookList).toHaveLength(3);
   });
 
   test('renders an empty list if no props are passed in', async () => {
-    const { queryAllByRole } = render(
+    const { queryAllByTestId } = render(
       <AuthProvider>
         <Router>
           <BookList />
@@ -56,7 +56,7 @@ describe('BookList', () => {
       </AuthProvider>
     );
 
-    const bookList = await waitForElement(() => queryAllByRole('listitem'));
+    const bookList = await waitForElement(() => queryAllByTestId('Book'));
 
     expect(bookList).toEqual([]);
   });

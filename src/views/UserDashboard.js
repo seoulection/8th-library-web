@@ -29,13 +29,13 @@ function UserDashboard() {
   }, [loadUser]);
 
   return (
-    <div data-testid="UserDashboard" className="container">
+    <div data-testid="UserDashboard" className="container-fluid">
       <div className="row">
-        <div className="col-md-6">
+        <div className="col">
           <h1>My Books</h1>
           <BookList books={state.userBooks} onAvailableChange={loadUser} />
         </div>
-        <div className="col-md-6">
+        <div className="col">
           <h1>Books I'm Borrowing</h1>
           <BookList books={state.userBorrowedBooks} onAvailableChange={loadUser} />
         </div>

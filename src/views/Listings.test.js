@@ -68,16 +68,21 @@ describe('Listings', () => {
     }
   };
 
+  const setup = () => {
+    const utils = render(
+      <AuthContext.Provider value={{ user: user }}>
+        <Router>
+          <Listings unmounted={jest.fn()} />
+        </Router>
+      </AuthContext.Provider>
+    );
+    return { ...utils };
+  }
+
   test('renders the listings page', async () => {
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce(data);
-      const { getByTestId } = render(
-        <AuthContext.Provider value={{ user: user }}>
-          <Router>
-            <Listings />
-          </Router>
-        </AuthContext.Provider>
-      );
+      const { getByTestId } = setup();
       const listings = await waitForElement(() => getByTestId('Listings'));
 
       expect(listings).toBeInTheDocument();
@@ -87,16 +92,61 @@ describe('Listings', () => {
   test('renders all of the books', async () => {
     await act(async () => {
       axiosMock.get.mockResolvedValueOnce(data);
-      const { getAllByRole } = render(
+      const { getAllByTestId } = setup();
+      const books = await waitForElement(() => getAllByTestId('Book'));
+
+      expect(books.length).toEqual(4);
+    });
+  });
+
+  test('renders the books based on filter keyword', async () => {
+    const filterQuery = 'book 1';
+    await act(async () => {
+      axiosMock.get.mockResolvedValueOnce(data);
+      const { getAllByTestId } = render(
         <AuthContext.Provider value={{ user: user }}>
           <Router>
-            <Listings />
+            <Listings filterQuery={filterQuery} unmounted={jest.fn()} />
           </Router>
         </AuthContext.Provider>
       );
-      const books = await waitForElement(() => getAllByRole('listitem'));
+      const filteredBooks = await waitForElement(() => getAllByTestId('Book'));
 
-      expect(books.length).toEqual(4);
+      expect(filteredBooks.length).toEqual(1);
+    });
+  });
+
+  test('it only shows available books if availability is set to true', async () => {
+    await act(async () => {
+      axiosMock.get.mockResolvedValueOnce(data);
+      const { getAllByTestId } = render(
+        <AuthContext.Provider value={{ user: user }}>
+          <Router>
+            <Listings showAvailableOnly={true} unmounted={jest.fn()} />
+          </Router>
+        </AuthContext.Provider>
+      );
+      const toggledBooks = await waitForElement(() => getAllByTestId('Book'));
+
+      expect(toggledBooks.length).toEqual(2);
+    });
+  });
+
+  test('it calls mock function when the Listings component unmounts', async () => {
+    const mockFunction = jest.fn();
+    await act(async () => {
+      axiosMock.get.mockResolvedValueOnce(data);
+      const { getAllByTestId, unmount } = render(
+        <AuthContext.Provider value={{ user: user }}>
+          <Router>
+            <Listings unmounted={mockFunction} />
+          </Router>
+        </AuthContext.Provider>
+      );
+      await waitForElement(() => getAllByTestId('Book'));
+      unmount();
+
+      expect(mockFunction).toBeCalledTimes(1);
     });
   });
 });

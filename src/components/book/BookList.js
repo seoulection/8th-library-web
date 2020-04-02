@@ -10,10 +10,8 @@ const BookList = props => {
   }
 
   return (
-    <div data-testid="BookList" className="scrollable">
-      <ul className="list-group">
-        {renderedList}
-      </ul>
+    <div data-testid="BookList" className="d-flex align-content-start flex-wrap justify-content-center">
+      {renderedList}
     </div>
   );
 }

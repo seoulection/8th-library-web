@@ -30,7 +30,16 @@ function GoogleLogoutLink() {
       .catch(err => console.log(err))
   }
 
-  return <Link data-testid="GoogleLogoutLink" onClick={onLogoutClick} to="#">Logout</Link>;
+  return (
+    <Link
+      data-testid="GoogleLogoutLink"
+      className="nav-link text-light"
+      onClick={onLogoutClick}
+      to="#"
+    >
+      Logout
+    </Link>
+  );
 }
 
 export default GoogleLogoutLink;
