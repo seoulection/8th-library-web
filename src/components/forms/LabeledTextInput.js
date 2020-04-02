@@ -6,7 +6,7 @@ function LabeledTextInput(props) {
   }
 
   return (
-    <div data-testid="LabeledTextInput">
+    <div data-testid="LabeledTextInput" className="form-group">
       <label htmlFor="input">{props.label}</label>
       <input
         id="input"

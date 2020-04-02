@@ -44,13 +44,13 @@ function BookDetails() {
 
     return (
       <div data-testid="BookDetails" className="container">
-        <div className="row">
-          <div className="col-md-6">
+        <div className="row align-items-center">
+          <div className="col-6">
             <h1>{book.title}</h1>
             <img src={book.image} alt={book.title} />
             <h4>Posted by: {book.owner.first_name} {book.owner.last_name}</h4>
           </div>
-          <div className="col-md-6">
+          <div className="col-6">
             <h2>Author: {book.author}</h2>
             <h3>Description: {book.description}</h3>
             {borrowingUser}

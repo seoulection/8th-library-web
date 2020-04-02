@@ -24,7 +24,7 @@ function LabeledImageInput(props) {
   }
 
   return (
-    <div data-testid="LabeledImageInput">
+    <div data-testid="LabeledImageInput" className="form-group">
       <label htmlFor="image-input">{props.label}</label>
       <input
         id="image-input"

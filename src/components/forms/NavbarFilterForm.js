@@ -15,23 +15,19 @@ function NavbarFilterForm(props) {
 
   if (location.pathname === '/') {
     return (
-      <form data-testid="NavbarFilterForm" className="navbar-form navbar-left">
-        <div className="form-group">
-          <input
-            className="form-control"
-            type="text"
-            value={props.filterQuery}
-            onChange={handleFilterChange}
-            placeholder="Filter books by title"
-          />
-        </div>
-        <div className="form-group">
-          <LabeledCheckboxInput
-            label="Show only available"
-            onChange={handleCheckboxChange}
-            checked={props.checked}
-          />
-        </div>
+      <form data-testid="NavbarFilterForm" className="form-inline">
+        <input
+          className="form-control mr-sm-2"
+          type="text"
+          value={props.filterQuery}
+          onChange={handleFilterChange}
+          placeholder="Filter books by title"
+        />
+        <LabeledCheckboxInput
+          label="Show only available"
+          onChange={handleCheckboxChange}
+          checked={props.checked}
+        />
       </form>
     );
   }

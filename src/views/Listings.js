@@ -35,12 +35,10 @@ function Listings(props) {
   }
 
   return (
-    <div data-testid="Listings" className="container">
-      <div className="row">
-        <div data-testid="AvailableBooks">
-          <h1>All Books</h1>
-          <BookList books={bookList} onAvailableChange={loadBooks} />
-        </div>
+    <div data-testid="Listings">
+      <div data-testid="AvailableBooks">
+        <h1 className="text-center">All Books</h1>
+        <BookList className="d-flex flex-wrap justify-content-center" books={bookList} onAvailableChange={loadBooks} />
       </div>
     </div>
   );

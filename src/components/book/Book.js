@@ -33,22 +33,24 @@ function Book(props) {
   }
 
   return (
-    <li className="list-group-item">
-      <div className="panel-body">
-        <div className="col-md-4">
-          <img className="card-img listing-img" src={image} alt={title} />
+    <div data-testid="Book" className="card">
+      <div className="row">
+        <div className="col-4">
+          <img className="listing-img" src={image} alt={title} />
         </div>
-        <div className="col-md-8">
-          <h1>
-            <Link to={`/books/${id}`}>{title}</Link>
-          </h1>
-          <h2>{author}</h2>
-          {borrowingUser}
-          {returnButton}
-          {borrowButton}
+        <div className="col-8">
+          <div className="card-body">
+            <h1>
+              <Link to={`/books/${id}`}>{title}</Link>
+            </h1>
+            <h2>{author}</h2>
+            {borrowingUser}
+            {returnButton}
+            {borrowButton}
+          </div>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
 
